@@ -8,6 +8,7 @@ use App\Models\Consultations;
 use App\Models\Products;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use DateTime;
 
 class DummySeeder extends Seeder
 {
@@ -36,10 +37,23 @@ class DummySeeder extends Seeder
             Products::factory()->create($product);
         }
 
-        // $consultations = [
-        //     ['user_id' => 1, 'consultant_id' => 2],
-        //     ['user_id' => 1, 'consultant_id' => 2],
-        //     ['user_id' => 1, 'consultant_id' => 2],
-        // ];
+        $consultations = [
+            ['user_id' => 1, 'consultant_id' => 2, 'date' => new DateTime(), 'status' => 'pending'],
+        ];
+
+        foreach ($consultations as $consultation) {
+            Consultations::factory()->create($consultation);
+        }
+
+        $chatMessages = [
+            ['consultation_id' => 1, 'sender_id' => 1, 'message' => 'Hello, I would like to book a consultation.', 'sent_at' => now()],
+            ['consultation_id' => 1, 'sender_id' => 2, 'message' => 'Sure, when would you like to book the consultation?', 'sent_at' => now()],
+            ['consultation_id' => 1, 'sender_id' => 1, 'message' => 'How about tomorrow at 10am?', 'sent_at' => now()],
+            ['consultation_id' => 1, 'sender_id' => 2, 'message' => 'That works for me.', 'sent_at' => now()],
+        ];
+
+        foreach ($chatMessages as $chatMessage) {
+            ChatMessages::factory()->create($chatMessage);
+        }
     }
 }
