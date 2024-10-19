@@ -32,15 +32,5 @@ class DatabaseSeeder extends Seeder
         Roles::factory()->create([
             'role_name' => 'Admin',
         ]);
-
-        $users = [
-            ['name' => 'User X', 'email' => 'alice@example.com', 'role_id' => 1],
-            ['name' => 'Consultant Y', 'email' => 'bob@example.com', 'role_id' => 2],
-            ['name' => 'Admin Z', 'email' => 'charlie@example.com', 'role_id' => 3],
-        ];
-
-        foreach ($users as $user) {
-            User::factory()->create($user);
-        }
     }
 }
