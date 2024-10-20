@@ -1,26 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    // return view('register');
-    return redirect()->route('register');
+Route::get('/', function(){
+    return redirect()->route('login');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::get('/register', [AuthController::class, 'showRegistForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->middleware('guest');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
 
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
 
-Route::get('/chat', function () {
-    return view('chat');
-});
+Route::get('/dashboard', [DashboardController::class, 'showIndex'])->middleware('auth')->name('dashboard');
+
+Route::get('/logout', [AuthController::class, 'logout']);
 
 ?>

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('username'); // changed from name to username
             $table->string('email')->unique();
             $table->string('password');
             $table->text('bio')->nullable();
-            $table->foreignId('role_id')->constrained('roles'); // FK to roles
+            $table->foreignId('role_id')->nullable()->constrained('roles'); // FK to roles, add nullable() and change()
             $table->timestamps(); // created_at, updated_at
         });
 
