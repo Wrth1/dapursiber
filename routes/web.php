@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('register');
+    return redirect()->route('register');
 });
 
 Route::get('/test', function () {
@@ -16,6 +17,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/register', function () {
     return view('register');
+})->name('register');
+
+Route::get('/chat', function () {
+    return view('chat');
 });
 
 ?>
