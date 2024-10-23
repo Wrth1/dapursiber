@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,12 +13,15 @@
         }
     </style>
 </head>
+
 <body class="text-gray-300">
     <div class="flex items-center justify-center min-h-screen">
         <div class="bg-gray-800 bg-opacity-90 border border-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md">
             <h2 class="text-3xl font-semibold text-center mb-6 text-gradient">Registration</h2>
+            @include('alerts.error')
+            @include('alerts.success')
             <form action="/register" method="POST" class="space-y-6">
-            @csrf <!-- sanitize csrf -->
+                @csrf <!-- sanitize csrf -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-200">Email</label>
                     <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:ring-2 focus:ring-pink-600 focus:border-pink-600" required>
@@ -39,4 +43,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -18,9 +18,9 @@ class DummySeeder extends Seeder
     public function run(): void
     {
         $users = [
-            ['name' => 'User X', 'email' => 'alice@example.com', 'role_id' => 1],
-            ['name' => 'Consultant Y', 'email' => 'bob@example.com', 'role_id' => 2],
-            ['name' => 'Admin Z', 'email' => 'charlie@example.com', 'role_id' => 3],
+            ['username' => 'User X', 'email' => 'alice@example.com', 'role_id' => 1],
+            ['username' => 'Consultant Y', 'email' => 'bob@example.com', 'role_id' => 2],
+            ['username' => 'Admin Z', 'email' => 'charlie@example.com', 'role_id' => 3],
         ];
 
         foreach ($users as $user) {
