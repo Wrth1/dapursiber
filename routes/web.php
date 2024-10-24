@@ -13,6 +13,10 @@ Route::get('/', function(){
     return redirect()->route('login');
 });
 
+Route::get('/test', function(){
+    return view('test');
+})->name('test');
+
 Route::get('/register', [AuthController::class, 'showRegistForm'])->middleware('guest')->name('register');
 Route::post('/register', [AuthController::class, 'register'])->middleware('guest');
 

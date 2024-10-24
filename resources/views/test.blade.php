@@ -2,7 +2,7 @@
 
 use App\Models\User;
 
-$test = User::where('name', 'User X')->first();
+$test = User::where('username', 'User X')->first();
 ?>
 
 <h1>User Data</h1>
@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\DB;
 $test = DB::table('consultations')
     ->join('users as u', 'consultations.user_id', '=', 'u.id')
     ->join('users as c', 'consultations.consultant_id', '=', 'c.id')
-    ->select('consultations.id', 'u.name as user_name', 'c.name as consultant_name')
+    ->select('consultations.id', 'u.username as user_name', 'c.username as consultant_name')
     ->get();
 ?>
 
@@ -50,7 +50,7 @@ $test = ChatMessages::all();
 
 <h1>Chat Messages Data</h1>
 @foreach ($test as $item)
-    <h2>Consultation ID: {{ $item->consultation_id }}</h2>
+    <h2>Consultation Room ID: {{ $item->consultation_id }}</h2>
     <h3>Sender ID: {{ $item->sender_id }}</h3>
     <h4>Message: {{ $item->message }}</h4>
     <h5>Sent At: {{ $item->sent_at }}</h5>
