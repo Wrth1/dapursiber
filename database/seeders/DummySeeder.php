@@ -38,7 +38,8 @@ class DummySeeder extends Seeder
         }
 
         $consultations = [
-            ['user_id' => 1, 'consultant_id' => 2, 'date' => new DateTime(), 'status' => 'pending'],
+            ['user_id' => 1, 'consultant_id' => 2, 'date' => new DateTime(), 'status' => 'ongoing'],
+            ['user_id' => 1, 'consultant_id' => 2, 'date' => new DateTime(), 'status' => 'ongoing'],
         ];
 
         foreach ($consultations as $consultation) {
@@ -50,6 +51,10 @@ class DummySeeder extends Seeder
             ['consultation_id' => 1, 'sender_id' => 2, 'message' => 'Sure, when would you like to book the consultation?', 'sent_at' => now()],
             ['consultation_id' => 1, 'sender_id' => 1, 'message' => 'How about tomorrow at 10am?', 'sent_at' => now()],
             ['consultation_id' => 1, 'sender_id' => 2, 'message' => 'That works for me.', 'sent_at' => now()],
+            ['consultation_id' => 2, 'sender_id' => 1, 'message' => 'Hello, This is the 2nd room.', 'sent_at' => now()],
+            ['consultation_id' => 2, 'sender_id' => 2, 'message' => 'Yes we are at the 2nd room', 'sent_at' => now()],
+            ['consultation_id' => 2, 'sender_id' => 1, 'message' => 'Hopefully we are not mixed with the first room', 'sent_at' => now()],
+            ['consultation_id' => 2, 'sender_id' => 2, 'message' => 'Hopefully.', 'sent_at' => now()],
         ];
 
         foreach ($chatMessages as $chatMessage) {
