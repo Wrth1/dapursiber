@@ -15,6 +15,18 @@ $test = User::where('username', 'User X')->first();
     use App\Models\ChatMessages;
     $messages = ChatMessages::all();
 ?>
+
+<?php
+
+use Illuminate\Support\Facades\DB;
+
+$consultaiondatalist = DB::table('consultations')
+    ->join('users as u', 'consultations.user_id', '=', 'u.id')
+    ->join('users as c', 'consultations.consultant_id', '=', 'c.id')
+    ->select('consultations.id', 'u.username as user_name', 'c.username as consultant_name')
+    ->get();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -250,24 +262,19 @@ $test = User::where('username', 'User X')->first();
                 <input type="text" placeholder="Search name...">
             </div>
             <div class="contacts-list">
-                <div class="contact-item">
+                @foreach ($consultaiondatalist as $datalist)
+                <div class="contact-item" onclick="window.location='/chat/<?=$datalist->id?>'">
                     <img src="/api/placeholder/45/45" alt="Contact 1">
                     <div class="contact-info">
-                        <h3>Consultant Name</h3>
-                        <p>Hey, how are you?</p>
+                        <h3>{{$datalist->id}} {{ $datalist->consultant_name }}</h3>
                     </div>
                 </div>
-                <div class="contact-item">
-                    <img src="/api/placeholder/45/45" alt="Contact 2">
-                    <div class="contact-info">
-                        <h3>Consultant Name</h3>
-                        <p>Meeting at 3 PM</p>
-                    </div>
-                </div>
+                @endforeach
+                
             </div>
         </div>
 
-        <div class="chat-container">
+        <!-- <div class="chat-container">
             <div class="chat-header">
                 <img src="/api/placeholder/40/40" alt="Contact Avatar">
                 <div class="contact-info">
@@ -305,7 +312,7 @@ $test = User::where('username', 'User X')->first();
                 <input type="text" placeholder="Type a message...">
                 <button>Send</button>
             </div>
-        </div>
+        </div> -->
     </div>
 </body>
 </html>
