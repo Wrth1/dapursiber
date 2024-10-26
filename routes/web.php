@@ -28,7 +28,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 // Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'showIndex'])->middleware('auth')->name('dashboard');
-    Route::get('/chat', [ChatController::class, 'showChat'])->name('chat');
+    Route::resource('/chat', ChatController::class);
     Route::get('/product', [ProductController::class, 'showProductPage'])->name('product');
 // });
 

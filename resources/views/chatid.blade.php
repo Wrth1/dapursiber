@@ -278,7 +278,7 @@ $test = User::where('username', 'User X')->first();
 
             <div class="chat-messages">
                 @foreach ($messages as $message)
-                @if($message->consultation_id == 1)
+                @if($message->consultation_id == $consultation_id)
                     @if($message->sender_id == 2)
                     <div class="message received">
                         <div class="message-content">

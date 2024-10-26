@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
-    //
-    public function showChat() {
+    public function index() {
         return view('chat');
+    }
+    public function show($consultationid){
+
+        return view('chatid', [
+            'consultation_id' => $consultationid
+        ]);
     }
 }
