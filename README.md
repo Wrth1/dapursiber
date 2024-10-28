@@ -10,3 +10,23 @@ cara start:
 8. ke laravel herd -> link existing project, pilih folder ini
 9. di terminal di folder ini, run `npm run dev`
 10. enjoy http://dapursiber.test
+
+Creds:
+
+user:
+```
+User X
+password
+```
+
+consultant:
+```
+Consultant Y
+password
+```
+
+admin:
+```
+Admin Z
+password
+```

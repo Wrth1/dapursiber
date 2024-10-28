@@ -17,6 +17,15 @@ class ConsultantController extends Controller
     }
 
     public function showConsultationRequest(){
-        return view('hello');
+        return view('consultation_request');
     }
+
+    public function bookConsultation(){
+
+    }
+
+    public function acceptConsultation(){
+
+    }
+
 }

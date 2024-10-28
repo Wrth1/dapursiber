@@ -9,11 +9,12 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 
 
-Route::get('/', function(){
-    return redirect()->route('login');
+
+Route::get('/', function () {
+    return view('universal.landing');
 });
 
-Route::get('/test', function(){
+Route::get('/test', function () {
     return view('test');
 })->name('test');
 
@@ -26,26 +27,28 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
 Route::get('/logout', [AuthController::class, 'logout']);
 
 
-// Route::middleware('auth')->group(function(){
-    Route::get('/dashboard', [DashboardController::class, 'showIndex'])->middleware('auth')->name('dashboard');
-    Route::resource('/chat', ChatController::class);
-    Route::get('/product', [ProductController::class, 'showProductPage'])->name('product');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'showIndex'])->name('dashboard');
 
-// Route::middleware(['auth', 'role_id:1'])->group(function() {
+    Route::resource('/chat', ChatController::class)
+        ->name('index', 'chat');
+
+    Route::resource('/product', ProductController::class)
+        ->name('index', 'product');
+});
+
+Route::middleware(['role_id:1'])->group(function () {
     Route::get('/consultant', [ConsultantController::class, 'showConsultantPage'])->name('consultant');
-// });
+    Route::post('/book_consultation', [ConsultantController::class, 'bookConsultation']);
+});
 
-// Route::middleware(['auth', 'role_id:2'])->group(function() {
-    Route::get('/consultantRequest', [ConsultantController::class, "showConsultationRequest"])->name('consultant');
-// });
+Route::middleware(['role_id:2'])->group(function () {
+    Route::get('/consultation_request', [ConsultantController::class, "showConsultationRequest"])->name('consultation_request');
+    Route::post('/consultation_request', [ConsultantController::class, "acceptConsultation"]);
+});
 
-// Route::middleware(['auth', 'role_id:3'])->group(function() {
-    Route::get('/user', [UserController::class, 'viewUsers'])->name('user');
-    Route::post('/user', [UserController::class, 'addUsers'])->name('user');
-
-    Route::post('/product', [ProductController::class, 'addProduct'])->name('product');
-// });
-
-
-?>
+Route::middleware(['role_id:3'])->group(function () {
+    Route::resource('/user', UserController::class)
+        ->name('index', 'chat');
+    // Route::post('/product', [ProductController::class, 'addProduct'])->name('product');
+});
