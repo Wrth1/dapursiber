@@ -40,6 +40,8 @@
                 </div>
                 <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:bg-gradient-to-l text-white font-bold py-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-600">Register</button>
             </form>
+            <div class="mt-6 text-center">
+                <a href="{{ route('login') }}" class="text-pink-500 hover:underline">Have an account? Login</a>
         </div>
     </div>
 </body>

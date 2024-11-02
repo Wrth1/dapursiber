@@ -1,38 +1,8 @@
-<!-- <?php
-
-use App\Models\User;
-
-$test = User::where('username', 'User X')->first();
-?>
-
-<h1>Chattings</h1>
-
-<h2>{{ $test->username }}</h2>
-<h3>{{ $test->email }}</h3>
-<h4>{{ $test->bio }}</h4> -->
-
-<?php
-    use App\Models\ChatMessages;
-    $messages = ChatMessages::all();
-?>
-
-<?php
-
-use Illuminate\Support\Facades\DB;
-
-$consultaiondatalist = DB::table('consultations')
-    ->join('users as u', 'consultations.user_id', '=', 'u.id')
-    ->join('users as c', 'consultations.consultant_id', '=', 'c.id')
-    ->select('consultations.id', 'u.username as user_name', 'c.username as consultant_name')
-    ->get();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Interface</title>
+    @include('header')
     <style>
         * {
             margin: 0;
@@ -253,6 +223,7 @@ $consultaiondatalist = DB::table('consultations')
     </style>
 </head>
 <body>
+    @include('navbar')
     <div class="main-container">
         <div class="sidebar">
             <div class="sidebar-header">
@@ -262,7 +233,7 @@ $consultaiondatalist = DB::table('consultations')
                 <input type="text" placeholder="Search name...">
             </div>
             <div class="contacts-list">
-                @foreach ($consultaiondatalist as $datalist)
+                @foreach ($consultationdatalist as $datalist)
                 <div class="contact-item" onclick="window.location='/chat/<?=$datalist->id?>'">
                     <img src="/api/placeholder/45/45" alt="Contact 1">
                     <div class="contact-info">
@@ -270,49 +241,9 @@ $consultaiondatalist = DB::table('consultations')
                     </div>
                 </div>
                 @endforeach
-                
+
             </div>
         </div>
-
-        <!-- <div class="chat-container">
-            <div class="chat-header">
-                <img src="/api/placeholder/40/40" alt="Contact Avatar">
-                <div class="contact-info">
-                    <h2>Bill</h2>
-                </div>
-            </div>
-           
-
-            <div class="chat-messages">
-                @foreach ($messages as $message)
-                @if($message->consultation_id == 1)
-                    @if($message->sender_id == 2)
-                    <div class="message received">
-                        <div class="message-content">
-                            {{ $message->consultation_id }}
-                            {{ $message->message }}
-                            <div class="message-time">{{ $message->sent_at }}</div>
-                        </div>
-                    </div>
-                    
-                    @elseif($message->sender_id == 1)
-                    <div class="message sent">
-                        <div class="message-content">
-                            {{ $message->consultation_id }}
-                            {{ $message->message }}
-                            <div class="message-time">{{ $message->sent_at }}</div>
-                        </div>
-                    </div>
-                    @endif
-                @endif
-                @endforeach
-            </div>
-
-            <div class="chat-input">
-                <input type="text" placeholder="Type a message...">
-                <button>Send</button>
-            </div>
-        </div> -->
     </div>
 </body>
 </html>
