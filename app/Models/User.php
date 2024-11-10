@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -44,4 +45,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    static function get_consultant() {
+        $consultantdata = DB::table('users')
+        ->select(
+            'users.username as consultant_name',
+            'users.role_id as id')
+        ->where('users.role_id', 2)
+        ->get();
+
+        return $consultantdata;
+    }
+
 }

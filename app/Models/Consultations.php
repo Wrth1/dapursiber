@@ -10,6 +10,13 @@ class Consultations extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'consultant_id',
+        'date',
+        'status',
+    ];
+
     static function get_consultation_list($user_id) {
         $consultaiondatalist = DB::table('consultations')
         ->join('users as u', 'consultations.user_id', '=', 'u.id')

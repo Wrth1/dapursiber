@@ -16,13 +16,13 @@
             <div>
                 <h1 class="text-2xl font-bold mb-2">Welcome back, {{ auth()->user()->username }}</h1>
             </div>
-            @foreach ($consultationdata as $data)
+            {{-- @foreach ($consultationdata as $data)
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
                     <h2 class="text-xl font-bold mb-2">{{ $data->consultant_name }}</h2>
                     <p class="text-gray-700">{{ $data->consultation_date }}</p>
                     <a href="/chat/{{ $data->id }}">Link</a>
                 </div>
-            @endforeach
+            @endforeach --}}
             <div>
                 <a href="/consultant">Link Consultant</a>
             </div>
