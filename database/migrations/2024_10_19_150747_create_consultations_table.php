@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('consultant_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');;
+            $table->foreignId('consultant_id')->constrained('users')->onDelete('cascade');;
             $table->dateTime('date');
             $table->string('status')->default('pending');
             $table->timestamps();

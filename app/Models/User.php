@@ -47,6 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Roles::class, 'role_id');
+    }
+
     static function get_consultant() {
         $consultantdata = DB::table('users')
         ->select(

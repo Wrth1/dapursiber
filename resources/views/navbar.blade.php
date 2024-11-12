@@ -39,6 +39,7 @@ use App\Models\Roles;
         <nav>
             <ul class="flex space-x-4">
                 <li><a href="/dashboard" class="text-gray-600 hover:text-gray-800">Home</a></li>
+                <li><a href="/user" class="text-gray-600 hover:text-gray-800">User</a></li>
                 <li><a href="/logout" class="text-gray-600 hover:text-gray-800">Logout</a></li>
             </ul>
         </nav>

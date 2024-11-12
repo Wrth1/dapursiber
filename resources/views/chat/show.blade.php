@@ -335,7 +335,16 @@ $userIsConsultant = Roles::role_is($user, 'Consultant');
                     messageDiv.classList.add('message', 'sent');
                     messageDiv.innerHTML = `
                         <div class="message-content">
-                            ${message}
+                            ${message.replace(/[<>&"']/g, function(c) {
+                                const entities = {
+                                    '<': '&lt;',
+                                    '>': '&gt;',
+                                    '&': '&amp;',
+                                    '"': '&quot;',
+                                    "'": '&#39;'
+                                };
+                                return entities[c];
+                            })}
                             <div class="message-time">${new Date().toLocaleTimeString()}</div>
                         </div>
                     `;

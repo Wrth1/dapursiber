@@ -52,6 +52,11 @@ Route::middleware(['role_id:2'])->group(function () {
 
 Route::middleware(['role_id:3'])->group(function () {
     Route::resource('/user', UserController::class)
-        ->name('index', 'userlist');
+        ->names([
+            'index' => 'userlist',
+            'edit' => 'user.edit',
+            'update' => 'user.update',
+            'destroy' => 'user.destroy',
+        ]);
     // Route::post('/product', [ProductController::class, 'addProduct'])->name('product');
 });
