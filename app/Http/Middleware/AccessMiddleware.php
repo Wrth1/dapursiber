@@ -31,7 +31,7 @@ class AccessMiddleware
     // }
     public function handle(Request $request, Closure $next)
     {
-        $consultationId = $request->route('chat');
+        $consultationId = $request->route('chat') ?? $request->input('consultation_id');
         $userId = auth()->user()->id;
 
         if (!Consultations::is_owned_by_user($consultationId, $userId)) {

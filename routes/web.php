@@ -30,8 +30,11 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'showIndex'])->name('dashboard');
     Route::resource('/chat', ChatController::class)
-        ->name('index', 'chat')
-        ->name('show', 'chat.show');
+        ->names([
+            'index' => 'chat',
+            'show' => 'chat.show',
+            'update' => 'chat.update', // Add this line
+        ]);
 
     Route::resource('/product', ProductController::class)
         ->name('index', 'product');

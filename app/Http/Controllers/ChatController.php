@@ -12,7 +12,7 @@ class ChatController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('access')->only('show');
+        $this->middleware('access')->only(['show', 'update']); // Add 'update'
     }
 
     public function index() {
@@ -39,5 +39,24 @@ class ChatController extends Controller
 
     public function store(Request $request) {
 
+    }
+
+    public function update(Request $request, $consultationId)
+    {
+        $request->validate([
+            'message' => 'required|string',
+        ]);
+
+        $userId = auth()->user()->id;
+
+        // Save the message to the database
+        ChatMessages::create([
+            'consultation_id' => $consultationId,
+            'sender_id' => $userId,
+            'message' => $request->input('message'),
+            'sent_at' => now(),
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }

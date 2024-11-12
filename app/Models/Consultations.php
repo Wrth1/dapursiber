@@ -22,6 +22,7 @@ class Consultations extends Model
         ->join('users as u', 'consultations.user_id', '=', 'u.id')
         ->join('users as c', 'consultations.consultant_id', '=', 'c.id')
         ->select(
+            'u.username as user_name',
             'c.username as consultant_name',
             'consultations.date as consultation_date',
             'consultations.status as status',

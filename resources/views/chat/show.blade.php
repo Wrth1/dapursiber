@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Roles;
 use Illuminate\Support\Facades\Auth;
- $userId = Auth::user()->id;
+$user = Auth::user();
+$userId = $user->id;
+$userIsConsultant = Roles::role_is($user, 'Consultant');
+
 ?>
 
 <!DOCTYPE html>
@@ -243,7 +247,11 @@ use Illuminate\Support\Facades\Auth;
                 <div class="contact-item" onclick="window.location='/chat/<?=$datalist->id?>'">
                     <img src="/api/placeholder/45/45" alt="Contact 1">
                     <div class="contact-info">
-                        <h3>{{$datalist->id}} {{ $datalist->consultant_name }}</h3>
+                        @if($userIsConsultant)
+                            <h3>{{ $datalist->id }} {{ $datalist->user_name }}</h3>
+                        @else
+                            <h3>{{ $datalist->id }} {{ $datalist->consultant_name }}</h3>
+                        @endif
                     </div>
                 </div>
                 @endforeach
@@ -254,7 +262,11 @@ use Illuminate\Support\Facades\Auth;
             <div class="chat-header">
                 <img src="/api/placeholder/40/40" alt="Contact Avatar">
                     <div class="contact-info">
-                        <h2>{{ $consultationdata->consultant_name }}</h2>
+                        @if($userIsConsultant)
+                            <h2>{{ $consultationdata->user_name }}</h2>
+                        @else
+                            <h2>{{ $consultationdata->consultant_name }}</h2>
+                        @endif
                     </div>
             </div>
             <div class="chat-messages">
@@ -285,10 +297,56 @@ use Illuminate\Support\Facades\Auth;
 
             </div>
             <div class="chat-input">
-                <input type="text" placeholder="Type a message...">
-                <button>Send</button>
+                <form id="chat-form" style="display: flex; width: 100%;">
+                    @csrf
+                    @method('PUT')
+                    <input type="text" id="message-input" name="message" placeholder="Type a message..." required>
+                    <button type="submit">Send</button>
+                </form>
             </div>
         </div>
     </div>
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+        const chatMessages = document.querySelector('.chat-messages');
+        const consultationId = {{ $consultation_id }};
+
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let message = messageInput.value.trim();
+            if (message === '') return;
+
+            fetch(`/chat/${consultationId}`, {
+                method: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Add the message to the chat bubbles
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('message', 'sent');
+                    messageDiv.innerHTML = `
+                        <div class="message-content">
+                            ${message}
+                            <div class="message-time">${new Date().toLocaleTimeString()}</div>
+                        </div>
+                    `;
+                    chatMessages.appendChild(messageDiv);
+                    // Clear the input
+                    messageInput.value = '';
+                    // Scroll to the bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

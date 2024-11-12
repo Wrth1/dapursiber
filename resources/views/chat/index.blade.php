@@ -1,5 +1,17 @@
+<?php
+
+use App\Models\Roles;
+use Illuminate\Support\Facades\Auth;
+
+$user = Auth::user();
+$userId = $user->id;
+$userIsConsultant = Roles::role_is($user, 'Consultant');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Chat Interface</title>
     @include('header')
@@ -222,6 +234,7 @@
         }
     </style>
 </head>
+
 <body>
     @include('navbar')
     <div class="main-container">
@@ -234,10 +247,14 @@
             </div>
             <div class="contacts-list">
                 @foreach ($consultationdatalist as $datalist)
-                <div class="contact-item" onclick="window.location='/chat/<?=$datalist->id?>'">
+                <div class="contact-item" onclick="window.location='/chat/<?= $datalist->id ?>'">
                     <img src="/api/placeholder/45/45" alt="Contact 1">
                     <div class="contact-info">
-                        <h3>{{$datalist->id}} {{ $datalist->consultant_name }}</h3>
+                        @if($userIsConsultant)
+                        <h3>{{ $datalist->id }} {{ $datalist->user_name }}</h3>
+                        @else
+                        <h3>{{ $datalist->id }} {{ $datalist->consultant_name }}</h3>
+                        @endif
                     </div>
                 </div>
                 @endforeach
@@ -246,4 +263,5 @@
         </div>
     </div>
 </body>
+
 </html>
