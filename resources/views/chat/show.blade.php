@@ -1,3 +1,9 @@
+<?php
+
+use Illuminate\Support\Facades\Auth;
+ $userId = Auth::user()->id;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -256,7 +262,7 @@
                 @foreach ($messages as $message)
                 @if($message->consultation_id == $consultation_id)
 
-                    @if($message->sender_id == 2)
+                    @if($message->sender_id != $userId)
                     <div class="message received">
                         <div class="message-content">
                             {{ $message->consultation_id }}
@@ -265,7 +271,7 @@
                         </div>
                     </div>
 
-                    @elseif($message->sender_id == 1)
+                    @elseif($message->sender_id == $userId)
                     <div class="message sent">
                         <div class="message-content">
                             {{ $message->consultation_id }}

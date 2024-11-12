@@ -33,6 +33,8 @@ class AuthController extends Controller
             'username' => $validated['username'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'bio' => 'Hello, I am a new user',
+            'role_id' => 1,
         ]);
 
         return redirect()->route('login');

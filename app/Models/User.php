@@ -21,6 +21,8 @@ class User extends Authenticatable
         'username', // change from name -> username
         'email',
         'password',
+        'bio',
+        'role_id',
     ];
 
     /**

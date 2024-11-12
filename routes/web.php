@@ -29,9 +29,9 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'showIndex'])->name('dashboard');
-
     Route::resource('/chat', ChatController::class)
-        ->name('index', 'chat');
+        ->name('index', 'chat')
+        ->name('show', 'chat.show');
 
     Route::resource('/product', ProductController::class)
         ->name('index', 'product');
@@ -49,6 +49,6 @@ Route::middleware(['role_id:2'])->group(function () {
 
 Route::middleware(['role_id:3'])->group(function () {
     Route::resource('/user', UserController::class)
-        ->name('index', 'chat');
+        ->name('index', 'userlist');
     // Route::post('/product', [ProductController::class, 'addProduct'])->name('product');
 });

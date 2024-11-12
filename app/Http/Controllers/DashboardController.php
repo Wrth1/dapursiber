@@ -13,7 +13,7 @@ class DashboardController extends Controller
         if (Roles::role_is(auth()->user(), 'User')){
             return view('universal.dashboard',
                 [
-                    'consultationdata' => Consultations::get_consultation_list(auth()->user()->id)
+                    'consultationdata' => Consultations::get_consultations_by_id(auth()->user()->id)
                 ]
             );
         }
